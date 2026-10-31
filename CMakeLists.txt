@@ -18,10 +18,18 @@ option(GDKINPUT_GLFW_BUILD_DEMO "Build the demos" OFF)
 option(GDKINPUT_GLFW_BUILD_DOCS "Build documentation" OFF)
 option(GDKINPUT_GLFW_INSTALL "Generate install rules, GLFW's included" ${PROJECT_IS_TOP_LEVEL})
 
-if (GDKINPUT_GLFW_BUILD_DOCS AND NOT GDKINPUT_GLFW_BUILD_TESTS AND NOT GDKINPUT_GLFW_BUILD_DEMO)
-    add_subdirectory(docs)
+if (GDKINPUT_GLFW_BUILD_DOCS)
+    jfc_generate_documentation_doxygen(
+        README_PATH      README.md
+        OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/docs
 
-    return()
+        INCLUDE_DIRECTORIES
+            include/
+    )
+
+    if (NOT GDKINPUT_GLFW_BUILD_TESTS AND NOT GDKINPUT_GLFW_BUILD_DEMO)
+        return()
+    endif()
 endif()
 
 add_subdirectory(extern)
@@ -126,8 +134,4 @@ endif()
 
 if (GDKINPUT_GLFW_BUILD_DEMO)
     add_subdirectory(demo)
-endif()
-
-if (GDKINPUT_GLFW_BUILD_DOCS)
-    add_subdirectory(docs)
 endif()
