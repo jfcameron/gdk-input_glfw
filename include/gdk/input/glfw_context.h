@@ -32,7 +32,7 @@ namespace gdk::input {
         [[nodiscard]] virtual mouse::cursor_2d_type mouse_delta() const override;
         [[nodiscard]] virtual mouse::scroll_2d_type mouse_scroll_delta() const override;
         [[nodiscard]] virtual mouse::cursor_mode mouse_cursor_mode() const override;
-        virtual void set_mouse_cursor_mode(mouse::cursor_mode mode) override;
+        virtual void set_mouse_cursor_mode(mouse::cursor_mode aMode) override;
 
         [[nodiscard]] virtual const std::vector<text::event> &text_events() const override;
         [[nodiscard]] virtual text::composition text_composition() const override;

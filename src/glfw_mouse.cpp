@@ -18,8 +18,8 @@
 
 using namespace gdk::input;
 
-static inline decltype(GLFW_MOUSE_BUTTON_1) glfwmouseButtonFromButton(const gdk::input::mouse::button a) {
-    switch(a) {
+static inline decltype(GLFW_MOUSE_BUTTON_1) glfwmouseButtonFromButton(const gdk::input::mouse::button aValue) {
+    switch(aValue) {
         case gdk::input::mouse::button::left: return GLFW_MOUSE_BUTTON_LEFT;
         case gdk::input::mouse::button::right: return GLFW_MOUSE_BUTTON_RIGHT;
         case gdk::input::mouse::button::middle: return GLFW_MOUSE_BUTTON_MIDDLE;
@@ -30,7 +30,7 @@ static inline decltype(GLFW_MOUSE_BUTTON_1) glfwmouseButtonFromButton(const gdk:
         case gdk::input::mouse::button::eight: return GLFW_MOUSE_BUTTON_8;
 
 		default: throw std::invalid_argument(std::string("Unable to convert mouse button \"")
-			.append(std::to_string(static_cast<std::underlying_type< decltype(a)>::type>(a)))
+			.append(std::to_string(static_cast<std::underlying_type< decltype(aValue)>::type>(aValue)))
 			.append("\" to GLFW_MOUSE_BUTTON"));
     }
 }

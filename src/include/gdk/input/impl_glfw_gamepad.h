@@ -31,15 +31,15 @@ namespace gdk::input {
         virtual std::size_t button_count() const override;
         virtual std::size_t axis_count() const override;
         virtual std::size_t hat_count() const override;
-        virtual hat_state_type hat(const index_type index) const override;
-        virtual axis_value_type axis_value(index_type index, axis_value_type threshold) const override;
-		virtual bool axis_just_exceeded_threshold(const index_type index, const axis_value_type threshold) const override;
-		virtual bool axis_just_dropped_below_threshold(const index_type index, const axis_value_type threshold) const override;
-		virtual axis_value_type previous_axis_value(const index_type index, const axis_value_type threshold) const override;
-		virtual std::optional<std::pair<index_type, axis_value_type>> any_axis_down(axis_value_type threshold) const override;
-        virtual bool button_down(const index_type index) const override;
-		virtual bool button_just_pressed(const index_type index) const override;
-		virtual bool button_just_released(const index_type index) const override;
+        virtual hat_state_type hat(const index_type aIndex) const override;
+        virtual axis_value_type axis_value(index_type aIndex, axis_value_type aThreshold) const override;
+		virtual bool axis_just_exceeded_threshold(const index_type aIndex, const axis_value_type aThreshold) const override;
+		virtual bool axis_just_dropped_below_threshold(const index_type aIndex, const axis_value_type aThreshold) const override;
+		virtual axis_value_type previous_axis_value(const index_type aIndex, const axis_value_type aThreshold) const override;
+		virtual std::optional<std::pair<index_type, axis_value_type>> any_axis_down(axis_value_type aThreshold) const override;
+        virtual bool button_down(const index_type aIndex) const override;
+		virtual bool button_just_pressed(const index_type aIndex) const override;
+		virtual bool button_just_released(const index_type aIndex) const override;
         virtual std::string_view name() const override;
 		virtual std::optional<button_collection_type::size_type> any_button_down() const override;
 

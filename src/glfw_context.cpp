@@ -64,16 +64,16 @@ bool glfw_context::mouse_button_down(const mouse::button& aButton) const {
 	return m_pImpl->mouse.button_down(aButton);
 }
 
-std::optional<mouse::axis> glfw_context::any_mouse_axis_down(const value_type threshold) const {
+std::optional<mouse::axis> glfw_context::any_mouse_axis_down(const value_type aThreshold) const {
 	const auto delta = mouse_delta();
 
-	if (std::abs(delta.x) > threshold) return mouse::axis::x;
-	if (std::abs(delta.y) > threshold) return mouse::axis::y;
+	if (std::abs(delta.x) > aThreshold) return mouse::axis::x;
+	if (std::abs(delta.y) > aThreshold) return mouse::axis::y;
 
 	const auto scroll = mouse_scroll_delta();
 
-	if (std::abs(scroll.x) > threshold) return mouse::axis::scroll_x;
-	if (std::abs(scroll.y) > threshold) return mouse::axis::scroll_y;
+	if (std::abs(scroll.x) > aThreshold) return mouse::axis::scroll_x;
+	if (std::abs(scroll.y) > aThreshold) return mouse::axis::scroll_y;
 
 	return {};
 }
@@ -94,8 +94,8 @@ mouse::cursor_mode glfw_context::mouse_cursor_mode() const {
 	return m_pImpl->mouse.get_cursor_mode();
 }
 
-void glfw_context::set_mouse_cursor_mode(mouse::cursor_mode mode) {
-	m_pImpl->mouse.set_cursor_mode(mode);
+void glfw_context::set_mouse_cursor_mode(mouse::cursor_mode aMode) {
+	m_pImpl->mouse.set_cursor_mode(aMode);
 }
 
 mouse::cursor_2d_type glfw_context::mouse_delta() const {
@@ -138,14 +138,14 @@ void glfw_context::set_clipboard(const std::string &aText) {
 	m_pImpl->text.set_clipboard(aText);
 }
 
-context::gamepad_ptr glfw_context::get_gamepad(const std::size_t index) {
-	if (index >= m_pImpl->gamepads.size()) {
+context::gamepad_ptr glfw_context::get_gamepad(const std::size_t aIndex) {
+	if (aIndex >= m_pImpl->gamepads.size()) {
 		static const auto pAbsent = std::make_shared<gamepad_glfw>();
 
 		return pAbsent;
 	}
 
-	return std::static_pointer_cast<gamepad>(m_pImpl->gamepads[index]);
+	return std::static_pointer_cast<gamepad>(m_pImpl->gamepads[aIndex]);
 }
 
 void glfw_context::swap_players(const std::size_t aLeft, const std::size_t aRight) {

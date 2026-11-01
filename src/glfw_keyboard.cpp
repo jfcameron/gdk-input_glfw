@@ -16,8 +16,8 @@ using namespace gdk::input;
 
 
 
-static inline decltype(GLFW_KEY_ESCAPE) glfwKeyCodeFromKey(const keyboard::key a) {
-    switch(a) {
+static inline decltype(GLFW_KEY_ESCAPE) glfwKeyCodeFromKey(const keyboard::key aValue) {
+    switch(aValue) {
         case keyboard::key::escape:       return GLFW_KEY_ESCAPE;
         case keyboard::key::f1:           return GLFW_KEY_F1;
         case keyboard::key::f2:           return GLFW_KEY_F2;
@@ -147,7 +147,7 @@ static inline decltype(GLFW_KEY_ESCAPE) glfwKeyCodeFromKey(const keyboard::key a
     }
 
     throw std::invalid_argument(std::string("Unable to convert keyboard key \"")
-		.append(std::to_string(static_cast< std::underlying_type< decltype(a)>::type>(a)))
+		.append(std::to_string(static_cast< std::underlying_type< decltype(aValue)>::type>(aValue)))
 		.append("\" to GLFW_KEY")); 
 }
 

@@ -50,60 +50,60 @@ bool gamepad_glfw::just_connected() const { return m_JustConnected; }
 
 bool gamepad_glfw::just_disconnected() const { return m_JustDisconnected; }
 
-float gamepad_glfw::axis_value(gamepad::index_type index, axis_value_type threshold) const {
-    if (index >= m_Axes.size()) return 0;
+float gamepad_glfw::axis_value(gamepad::index_type aIndex, axis_value_type aThreshold) const {
+    if (aIndex >= m_Axes.size()) return 0;
 
-    auto value = m_Axes[index];
+    auto value = m_Axes[aIndex];
 
-    if (std::abs(value) < threshold) return 0;
-
-    return value;
-}
-
-gamepad_glfw::axis_value_type gamepad_glfw::previous_axis_value(const index_type index,
-    const axis_value_type threshold) const {
-    if (index >= m_LastAxes.size()) return 0;
-
-    const auto value = m_LastAxes[index];
-
-    if (std::abs(value) < threshold) return 0;
+    if (std::abs(value) < aThreshold) return 0;
 
     return value;
 }
 
-bool gamepad_glfw::axis_just_exceeded_threshold(const index_type index, const axis_value_type threshold) const {
-    if (index >= m_Axes.size()) return false;
+gamepad_glfw::axis_value_type gamepad_glfw::previous_axis_value(const index_type aIndex,
+    const axis_value_type aThreshold) const {
+    if (aIndex >= m_LastAxes.size()) return 0;
 
-    const auto lastValue = index < m_LastAxes.size() ? m_LastAxes[index] : 0;
+    const auto value = m_LastAxes[aIndex];
 
-    return std::abs(m_Axes[index]) >= threshold && std::abs(lastValue) < threshold;
+    if (std::abs(value) < aThreshold) return 0;
+
+    return value;
 }
 
-bool gamepad_glfw::axis_just_dropped_below_threshold(const index_type index, const axis_value_type threshold) const {
-    if (index >= m_Axes.size()) return false;
+bool gamepad_glfw::axis_just_exceeded_threshold(const index_type aIndex, const axis_value_type aThreshold) const {
+    if (aIndex >= m_Axes.size()) return false;
 
-    const auto lastValue = index < m_LastAxes.size() ? m_LastAxes[index] : 0;
+    const auto lastValue = aIndex < m_LastAxes.size() ? m_LastAxes[aIndex] : 0;
 
-    return std::abs(m_Axes[index]) < threshold && std::abs(lastValue) >= threshold;
+    return std::abs(m_Axes[aIndex]) >= aThreshold && std::abs(lastValue) < aThreshold;
 }
 
-bool gamepad_glfw::button_down(const gamepad::index_type index) const {
-    if (index >= m_Buttons.size()) return false;
+bool gamepad_glfw::axis_just_dropped_below_threshold(const index_type aIndex, const axis_value_type aThreshold) const {
+    if (aIndex >= m_Axes.size()) return false;
 
-    return m_Buttons[index] == button_state::HELD_DOWN
-        || m_Buttons[index] == button_state::JUST_PRESSED;
+    const auto lastValue = aIndex < m_LastAxes.size() ? m_LastAxes[aIndex] : 0;
+
+    return std::abs(m_Axes[aIndex]) < aThreshold && std::abs(lastValue) >= aThreshold;
 }
 
-bool gamepad_glfw::button_just_pressed(const index_type index) const {
-    if (index >= m_Buttons.size()) return false;
+bool gamepad_glfw::button_down(const gamepad::index_type aIndex) const {
+    if (aIndex >= m_Buttons.size()) return false;
 
-    return m_Buttons[index] == button_state::JUST_PRESSED;
+    return m_Buttons[aIndex] == button_state::HELD_DOWN
+        || m_Buttons[aIndex] == button_state::JUST_PRESSED;
 }
 
-bool gamepad_glfw::button_just_released(const index_type index) const {
-    if (index >= m_Buttons.size()) return false;
+bool gamepad_glfw::button_just_pressed(const index_type aIndex) const {
+    if (aIndex >= m_Buttons.size()) return false;
 
-    return m_Buttons[index] == button_state::JUST_RELEASED;
+    return m_Buttons[aIndex] == button_state::JUST_PRESSED;
+}
+
+bool gamepad_glfw::button_just_released(const index_type aIndex) const {
+    if (aIndex >= m_Buttons.size()) return false;
+
+    return m_Buttons[aIndex] == button_state::JUST_RELEASED;
 }
 
 std::optional<gamepad::button_collection_type::size_type> gamepad_glfw::any_button_down() const {
@@ -113,10 +113,10 @@ std::optional<gamepad::button_collection_type::size_type> gamepad_glfw::any_butt
     return {};
 }
 
-std::optional<std::pair<gamepad::index_type, gamepad_glfw::axis_value_type>> gamepad_glfw::any_axis_down(axis_value_type threshold) const {
+std::optional<std::pair<gamepad::index_type, gamepad_glfw::axis_value_type>> gamepad_glfw::any_axis_down(axis_value_type aThreshold) const {
     for (decltype(m_Axes)::size_type i(0); i < m_Axes.size(); ++i) {
         if (m_Axes[i]) {
-            if (auto val = axis_value(static_cast<index_type>(i), threshold)) return {{
+            if (auto val = axis_value(static_cast<index_type>(i), aThreshold)) return {{
                 static_cast<index_type>(i),
                 val
             }};
@@ -142,10 +142,10 @@ std::size_t gamepad_glfw::axis_count() const { return m_Axes.size(); }
 
 std::size_t gamepad_glfw::hat_count() const { return m_Hats.size(); }
 
-gamepad::hat_state_type gamepad_glfw::hat(const index_type index) const {
-    if (index >= m_Hats.size()) return {};
+gamepad::hat_state_type gamepad_glfw::hat(const index_type aIndex) const {
+    if (aIndex >= m_Hats.size()) return {};
 
-    return m_Hats[index];
+    return m_Hats[aIndex];
 }
 
 namespace {
